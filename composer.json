@@ -1,0 +1,22 @@
+{
+    "name": "max-antipin/packagist-export-ignore",
+    "description": "",
+    "type": "library",
+    "keywords": [
+        "dev",
+        "standards"
+    ],
+    "config": {
+        "lock": false
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Max Antipin",
+            "email": "max.v.antipin@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    }
+}

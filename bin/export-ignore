@@ -32,7 +32,7 @@ function toStdErr(string $value, string ...$values): void {
         fwrite(STDERR, $text . PHP_EOL);
     }
 }
-$patternsToIgnore = ['.*', 'Tests/*', '*/Tests/*', '*.dist', '*.dist.*'];
+$patternsToIgnore = ['.*', '*.sh', 'Makefile', 'Tests/*', '*/Tests/*', '*.dist', '*.dist.*'];
 $filesToIgnore = [];
 $exportedFiles = runCmd(
     'git archive --format=tar --worktree-attributes HEAD | tar -t',

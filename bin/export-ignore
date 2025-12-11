@@ -43,10 +43,17 @@ $exportedFiles = runCmd(
     },
     $patternsToIgnore
 );
-if (isset($argv[1]) && 'show-ignored' === $argv[1]) {
-    $ignoredFiles = array_diff(runCmd('git ls-files'), $exportedFiles);
-    if ($ignoredFiles) {
-        toStdOut(...$ignoredFiles);
+if ($argc > 1) {
+    if ('show-ignored' === $argv[1]) {
+        $ignoredFiles = array_diff(runCmd('git ls-files'), $exportedFiles);
+        if ($ignoredFiles) {
+            toStdOut(...$ignoredFiles);
+        }
+    } elseif ('show-exported' === $argv[1]) {
+        toStdOut(...$exportedFiles);
+    } else {
+        toStdErr('Invalid argument ' . $argv[1]);
+        exit(2);
     }
 } else {
     if ($filesToIgnore) {

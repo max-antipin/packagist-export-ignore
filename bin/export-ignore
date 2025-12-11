@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
-function runCmd(string $cmd, callable $callback = null, ...$args): array {
+declare(strict_types=1);
+function runCmd(string $cmd, ?callable $callback = null, ...$args): array {
     $output = $result = null;
     exec($cmd, $output, $result);
     if (0 === $result) {
@@ -42,13 +43,14 @@ $exportedFiles = runCmd(
     },
     $patternsToIgnore
 );
-$ignoredFiles = array_diff(runCmd('git ls-files'), $exportedFiles);
-if ($ignoredFiles) {
-    toStdOut('', 'Files ignored:');
-    toStdOut(...$ignoredFiles);
-}
-if ($filesToIgnore) {
-    toStdOut('', 'Files to ignore:');
-    toStdOut(...$filesToIgnore);
-    exit(1);
+if (isset($argv[1]) && 'show-ignored' === $argv[1]) {
+    $ignoredFiles = array_diff(runCmd('git ls-files'), $exportedFiles);
+    if ($ignoredFiles) {
+        toStdOut(...$ignoredFiles);
+    }
+} else {
+    if ($filesToIgnore) {
+        toStdOut(...$filesToIgnore);
+        exit(1);
+    }
 }
